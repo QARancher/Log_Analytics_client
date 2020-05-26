@@ -67,25 +67,4 @@ def main():
 
 
 if __name__ == "__main__":
-    # main()
-    urls = ["https://galhaeastus.blob.core.windows.net/sre/perf/perf1.csv",
-            "https://galhaeastus.blob.core.windows.net/sre/consumers"
-            "/consumers1.csv"]
-    urls2 = ["https://galhaeastus.blob.core.windows.net/sre/perf"
-             "/perf2.csv",
-             "https://galhaeastus.blob.core.windows.net/sre/perf/perf3.csv",
-             "https://galhaeastus.blob.core.windows.net/sre/consumers"
-             "/consumers2.csv",
-             "https://galhaeastus.blob.core.windows.net/sre/consumers"
-             "/consumers3.csv",
-             "https://galhaeastus.blob.core.windows.net/sre/consumers"
-             "/consumers4.csv"]
-    # push data to Log Analytics
-    for url in urls2:
-        fname = url.split('/')[-1].split('.')[0]
-        for body in csv_to_json(url=url, use_type=True):
-            post_data(customer_id=customer_id, shared_key=shared_key,
-                      body=body,
-                      log_type=fname)
-        print(f"done file {fname}")
-    print(f"done urls")
+    main()
