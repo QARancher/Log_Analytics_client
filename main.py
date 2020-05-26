@@ -6,7 +6,25 @@ from log_analytics_client import post_data, csv_to_json
 
 
 def main():
-    usage = "python "
+    usage = "python --workspace_id='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' " \
+            "--primary_key='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' --blob=<file1 " \
+            "file2 or url1 url2>  --table_name=<table_name> " \
+            "--use_types=True\n" \
+            "--workspace_id: Mandatory - The unique identifier for the Log " \
+            "Analytics workspace. \n" \
+            "--primary_key: Mandatory - Primary key for authentication. Can" \
+            " be retrived from Log Analytics workspace then Advanced " \
+            "Settings and then Connected Sources \n" \
+            "--blob: Mandatory - CSV file or url to a blob containing " \
+            "events.\n" \
+            " May be used as list with space delimiter," \
+            " i.e 'url1 url2 url3 .. urln'\n" \
+            "--table_name: Mandatory - The target table name to publish the " \
+            "data to in Log Analytics. \n" \
+            "--use_types: Optional - when used, the special types as " \
+            "number and timestamp preserve their type while " \
+            "inserted to the Log Analytics workspace"
+
     if len(sys.argv) == 1:
         print(f"Wrong usage! \n ARGS: {sys.argv[1:]} \n{usage}")
         sys.exit(1)
@@ -22,13 +40,14 @@ def main():
                              "Can be retrived from Log Analytics workspace "
                              "then Advanced Settings and then Connected "
                              "Sources ")
-    parser.add_argument("-b", "--blob_uri", action="store", dest="blob",
+    parser.add_argument("-b", "--blob", action="store", dest="blob",
                         nargs='+', required=True,
-                        help="Mandatory - uri to a blob "
+                        help="Mandatory - CSV file or url to a blob "
                              "containing events.\n May be used as list with "
                              "space delimiter, i.e 'url1 url2 url3 .. urln'")
     parser.add_argument("-t", "--table_name", action="store", dest="table",
-                        help="Optional - The target table name to publish the"
+                        required=True,
+                        help="Mandatory - The target table name to publish the"
                              " data to in Log Analytics")
     parser.add_argument("--use_types", action="store_true", dest="use_types",
                         default=False,
