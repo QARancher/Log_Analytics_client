@@ -1,7 +1,5 @@
 import sys
 from argparse import ArgumentParser
-
-from config import customer_id, shared_key
 from log_analytics_client import post_data, csv_to_json
 
 
